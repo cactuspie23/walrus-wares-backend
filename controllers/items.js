@@ -50,9 +50,21 @@ function update(req, res) {
   })
 }
 
+function deleteItem(req, res) {
+  Item.findByIdAndDelete(req.params.id)
+  .then(deletedItem => {
+    res.status(200).json(deletedItem)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+}
+
 export {
   index,
   create,
   show,
   update,
+  deleteItem
 }
