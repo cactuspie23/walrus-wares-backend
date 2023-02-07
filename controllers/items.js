@@ -36,8 +36,23 @@ function show(req, res) {
   })
 }
 
+function update(req, res) {
+  for (let key in req.body) {
+    if (req.body[key] === '') delete req.body[key]
+  }
+  Item.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  .then(updatedItem => {
+    res.status(201).json(updatedItem)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+}
+
 export {
   index,
   create,
   show,
+  update,
 }
