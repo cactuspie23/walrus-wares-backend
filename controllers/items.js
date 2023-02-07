@@ -25,7 +25,19 @@ function create(req, res) {
   })
 }
 
+function show(req, res) {
+  Item.findById(req.params.id)
+  .then(item => {
+    res.status(200).json(item)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+}
+
 export {
   index,
   create,
+  show,
 }
